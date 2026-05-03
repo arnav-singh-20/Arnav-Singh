@@ -1041,8 +1041,8 @@ footer {
 // ┌─────────────────────────────────────────┐
 // │   🔑 PASTE YOUR CREDENTIALS HERE        │
 // └─────────────────────────────────────────┘
-const SUPABASE_URL = 'https://cpsjzmgufkvejbznyhaa.supabase.co';  // ← replace this
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNwc2p6bWd1Zmt2ZWpiem55aGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MTU3OTMsImV4cCI6MjA5MzM5MTc5M30.VAgyz0n9Zbor_6HLo-k0Jr5DUpd7b7ctNeZORXCEQeE';       // ← replace this
+const SUPABASE_URL = 'https://cpsjzmgufkvejbznyhaa.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNwc2p6bWd1Zmt2ZWpiem55aGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MTU3OTMsImV4cCI6MjA5MzM5MTc5M30.VAgyz0n9Zbor_6HLo-k0Jr5DUpd7b7ctNeZORXCEQeE';
 
 // ════════════════════════════════
 // SUPABASE API HELPERS
@@ -1064,7 +1064,14 @@ async function saveMessageToDB(entry) {
         message: entry.message
       })
     });
-    return res.ok;
+
+    if (!res.ok) {
+      const errBody = await res.json();
+      console.error('Supabase insert error:', res.status, errBody);
+      return false;
+    }
+
+    return true;
   } catch (e) {
     console.error('DB save error:', e);
     return false;
@@ -1074,7 +1081,7 @@ async function saveMessageToDB(entry) {
 async function loadMessagesFromDB() {
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/contact_messages?select=*&order=created_at.desc`,
+      `${SUPABASE_URL}/rest/v1/contact_messages?select=*&order=id.desc`,
       {
         headers: {
           'apikey': SUPABASE_ANON_KEY,
@@ -1082,27 +1089,32 @@ async function loadMessagesFromDB() {
         }
       }
     );
-    if (!res.ok) return null; // credentials not set yet
+    if (!res.ok) {
+      const errBody = await res.json();
+      console.error('Supabase fetch error:', res.status, errBody);
+      return null;
+    }
     const data = await res.json();
     return data.map(m => ({
       name: m.name,
       email: m.email,
       subject: m.subject || '(No subject)',
       message: m.message,
-      time: new Date(m.created_at).toLocaleString('en-IN', {
-        day: '2-digit', month: 'short', year: 'numeric',
-        hour: '2-digit', minute: '2-digit'
-      })
+      time: m.created_at
+        ? new Date(m.created_at).toLocaleString('en-IN', {
+            day: '2-digit', month: 'short', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+          })
+        : 'N/A'
     }));
   } catch (e) {
+    console.error('DB load error:', e);
     return null;
   }
 }
 
-// Detect if credentials have been filled in
 function dbConfigured() {
-  return SUPABASE_URL !== 'https://cpsjzmgufkvejbznyhaa.supabase.co' &&
-         SUPABASE_ANON_KEY !== 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNwc2p6bWd1Zmt2ZWpiem55aGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MTU3OTMsImV4cCI6MjA5MzM5MTc5M30.VAgyz0n9Zbor_6HLo-k0Jr5DUpd7b7ctNeZORXCEQeE';
+  return true;
 }
 
 // ════════════════════════════════
