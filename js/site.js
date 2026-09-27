@@ -1055,7 +1055,7 @@ customElements.define('site-footer', SiteFooter);
   dot.setAttribute('aria-hidden', 'true');
   const label = document.createElement('span');
   label.className = 'dot-label';
-  label.textContent = 'Press play, stranger';
+  label.textContent = '';
   dot.appendChild(label);
   document.body.appendChild(dot);
   document.documentElement.classList.add('dot-cursor-on');
@@ -1077,14 +1077,11 @@ customElements.define('site-footer', SiteFooter);
     if (e.pointerType && e.pointerType !== 'mouse') return;
     x = e.clientX; y = e.clientY;
     if (!shown) { shown = true; dot.classList.add('on'); }
-    const overReel = !!(e.target.closest && e.target.closest('.recorder'));
     // any element can claim the labelled cursor by declaring its own copy
-    const labelled = !overReel && e.target.closest && e.target.closest('[data-cursor-label]');
-    if (overReel) label.textContent = 'Press play, stranger';
-    else if (labelled) label.textContent = labelled.getAttribute('data-cursor-label');
-    dot.classList.toggle('reel', overReel);
+    const labelled = e.target.closest && e.target.closest('[data-cursor-label]');
+    if (labelled) label.textContent = labelled.getAttribute('data-cursor-label');
     dot.classList.toggle('labelled', !!labelled);
-    dot.classList.toggle('hot', !overReel && !labelled && !!(e.target.closest && e.target.closest(HOT)));
+    dot.classList.toggle('hot', !labelled && !!(e.target.closest && e.target.closest(HOT)));
     tick();
   }, { passive: true });
 

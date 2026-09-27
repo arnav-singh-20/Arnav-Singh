@@ -7402,34 +7402,45 @@
 
       /* the roles are long ("Data Scientist") and the line starts right of centre,
          so shrink this line just enough that the widest role never runs off-screen */
+      /* shrink each headline line just enough that neither "AI/ML Engineer &" nor
+         the widest role runs into the right edge. Measured with offset* (layout
+         size), NOT getBoundingClientRect: the hero is scaled by its scroll/route
+         animations, and a scaled read under-measures the text, so the fit came out
+         too big when you returned to Home from another page. */
+      function layoutLeft(el) {
+        let x = 0;
+        for (let n = el; n; n = n.offsetParent) x += n.offsetLeft;
+        return x;
+      }
       function fitRoll() {
-        /* shrink each headline line just enough that neither "AI/ML Engineer &" nor
-           the widest role runs into the right edge (keeps a comfortable margin) */
         const line1 = document.querySelector('.h-line.multidisciplinary');
+        if (!host.offsetWidth) return;                       // hero hidden (another route) — retry on return
         host.style.fontSize = '';
         if (line1) line1.style.fontSize = '';
         const margin = innerWidth <= 640 ? 20 : Math.max(48, innerWidth * 0.05);
+        const base = parseFloat(getComputedStyle(host).fontSize);
         let w = 0;
         WORDS.forEach((word) => {
           const probe = makeWord(word);
           probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;display:inline-block;';
           host.appendChild(probe);
-          w = Math.max(w, probe.getBoundingClientRect().width);
+          w = Math.max(w, probe.offsetWidth);
           host.removeChild(probe);
         });
-        const base = parseFloat(getComputedStyle(host).fontSize);
         let k1 = 1;
-        if (line1) {
-          const r1 = line1.getBoundingClientRect();
-          k1 = Math.min(1, (innerWidth - r1.left - margin) / r1.width);
+        if (line1 && line1.offsetWidth) {
+          k1 = Math.min(1, (innerWidth - layoutLeft(line1) - margin) / line1.offsetWidth);
           if (k1 < 1) line1.style.fontSize = (base * k1).toFixed(1) + 'px';
         }
         // the role line never grows past line 1, and shrinks further only if it must
-        const k2 = Math.min(k1, (innerWidth - host.getBoundingClientRect().left - margin) / w);
+        const k2 = w ? Math.min(k1, (innerWidth - layoutLeft(host) - margin) / w) : k1;
         if (k2 < 1) host.style.fontSize = (base * k2).toFixed(1) + 'px';
       }
       fitRoll();
       addEventListener('resize', fitRoll);
+      addEventListener('load', fitRoll);
+      addEventListener('hashchange', () => setTimeout(fitRoll, 60));
+      addEventListener('hashchange', () => setTimeout(fitRoll, 1600));   // after the route curtain settles
       if (document.fonts) document.fonts.ready.then(fitRoll);
 
       function next() {
