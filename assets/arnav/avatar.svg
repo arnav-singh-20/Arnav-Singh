@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="100" fill="#1b1b1b"/>
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#f6c740" stroke-width="5"/>
+  <text x="100" y="128" text-anchor="middle" font-family="DM Serif Display, Georgia, 'Times New Roman', serif" font-size="84" letter-spacing="2" fill="#fff9f1">AS</text>
+</svg>
