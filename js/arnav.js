@@ -214,6 +214,34 @@
         { t: 'Find the leak', d: 'Discount-leakage patterns causing an estimated 8–12% margin erosion, plus a top/bottom SKU revenue waterfall. Recommendations were adopted by stakeholders.' }
       ],
       learned: 'Good dashboards remove meetings — design for the questions people actually ask.'
+    },
+    {
+      slug: 'fifa-2026', art: 'fifa',
+      title: 'FIFA World Cup 2026 Prediction Model',
+      kicker: 'Elo ratings · Monte Carlo simulation · Live app',
+      short: 'A transparent Elo + Monte Carlo model that called 4 of 5 World Cup knockout matches before they were played — every prediction locked in and scored honestly.',
+      cats: ['ml', 'full'], year: '2026', role: 'Model design + web app',
+      stack: ['Python', 'JavaScript', 'Elo ratings', 'Monte Carlo', 'Probability', 'Render'],
+      live: 'https://fifa2026-prediction-model.onrender.com/', liveLabel: 'Live app',
+      github: 'https://github.com/arnav-singh-20/FIFA-2026-Prediction-Model',
+      metrics: [
+        { v: 80, d: 0, suf: '%', label: 'knockout calls correct — 4 of 5, made before kick-off' },
+        { v: 2, d: 0, suf: '/2', label: 'individual awards matched FIFA (Golden Boot, Golden Glove)' },
+        { v: 200, d: 0, suf: 'K', label: 'Monte Carlo trials behind the frozen title odds' },
+        { v: 0, d: 0, raw: '0', label: 'servers needed — the whole model runs in the browser' }
+      ],
+      problem: 'Most football “predictions” are opinions, quietly edited after the fact. I wanted a model simple enough to audit, whose every call was locked in before the match and then scored against what actually happened — misses included.',
+      simple: 'Every team gets a strength score. The bigger the gap between two teams, the more likely the stronger one wins. Then the rest of the tournament is played out thousands of times on the computer to count how often each team lifts the trophy.',
+      steps: [
+        { t: 'Power rating', d: 'Elo-style score per team: 1500 + 40 × group points + 15 × goal difference + 90 × knockout wins + a form adjustment. Knockout wins weigh most — surviving elimination is the strongest signal.' },
+        { t: 'Win probability', d: 'The classic Elo logistic curve turns a rating gap into a probability — a 100-point gap is about 64% vs 36%, and no team is ever 0% or 100%.' },
+        { t: 'Monte Carlo bracket', d: 'Each unplayed tie is a weighted coin flip; the full bracket is simulated tens of thousands of times (20,000+ live) to turn match odds into title odds.' },
+        { t: 'Results as ground truth', d: 'Confirmed results locked a team through for every future simulation and lifted its rating — the bracket, odds and awards all recomputed instantly.' },
+        { t: 'Score it honestly', d: 'After the final (Spain 1–0 Argentina, a.e.t.) the app was frozen: 4 of 5 knockout calls correct, 2 of 2 awards — with known results excluded from the count.' }
+      ],
+      bars: { title: 'The model’s calls, made before each match', unit: '%', max: 100, items: [['England (QF) ✓', 61], ['Argentina (QF) ✓', 70], ['France (SF1) ✗', 68], ['Argentina (SF2) ✓', 69], ['Spain (Final) ✓', 64]] },
+      barsNote: 'Win probability the model gave its pick. The one miss — France at 68% — is what a 68% favourite looks like: it loses about 3 times in 10.',
+      learned: 'A model you can audit beats a clever black box. Publishing the misses — not just the hits — is what makes a prediction trustworthy.'
     }
   ];
   const BY_SLUG = {};
@@ -327,6 +355,21 @@
         h.map((v, i) => '<rect class="axa-grow" style="--d:' + (i * 0.12) + 's" x="' + (80 + i * 70) + '" y="' + (340 - v * 0.8) + '" width="44" height="' + (v * 0.8) + '" rx="6" fill="' + (i === 5 ? GOLD : SKY) + '" stroke="' + INK + '" stroke-width="1.5"/>').join('') +
         '<path class="axa-draw" d="M102 245 L172 215 L242 232 L312 180 L382 205 L452 160" fill="none" stroke="' + INK + '" stroke-width="3" pathLength="1" stroke-linecap="round"/>',
         'Sales dashboard with KPI cards, animated bars and a trend line');
+    },
+    fifa() {
+      // semifinal bracket → final, plus title-odds bars and a bouncing ball
+      const team = (x, y, name, fill) => card(x, y - 20, 116, 40, fill || '#fff') + txt(x + 14, y + 5, name, 14);
+      const odds = [['Spain', 64, CORAL], ['Argentina', 36, SKY]];
+      return svg('#d8ecd0',
+        team(40, 80, 'France') + team(40, 150, 'Spain', GOLD) + team(40, 250, 'England') + team(40, 320, 'Argentina', GOLD) +
+        '<path d="M156 80 H186 V150 H156 M186 115 H214 M156 250 H186 V320 H156 M186 285 H214 M330 115 H356 V285 H330 M356 200 H380" fill="none" stroke="' + INK + '" stroke-width="2"/>' +
+        '<path class="axa-draw" d="M156 150 H186 V115 H214" fill="none" stroke="' + CORAL + '" stroke-width="4" pathLength="1" stroke-linecap="round"/>' +
+        team(214, 115, 'Spain') + team(214, 285, 'Argentina') +
+        card(380, 60, 190, 170) + txt(398, 88, 'TITLE ODDS · FINAL', 11, 'letter-spacing="1.5" opacity=".6"') +
+        odds.map((o, i) => txt(398, 124 + i * 50, o[0], 13) + '<rect class="axa-growx" style="--d:' + (0.5 + i * 0.25) + 's" x="398" y="' + (132 + i * 50) + '" width="' + (o[1] * 1.9) + '" height="14" rx="7" fill="' + o[2] + '" stroke="' + INK + '" stroke-width="1.5"/>' + txt(530, 124 + i * 50, o[1] + '%', 13, 'font-weight="700"')).join('') +
+        '<g class="axa-pop" style="--d:1.4s">' + card(380, 250, 190, 60, CORAL) + txt(398, 286, '4 / 5 calls correct', 16, 'font-weight="700"') + '</g>' +
+        '<g class="axa-bounce"><circle cx="475" cy="345" r="20" fill="#fff" stroke="' + INK + '" stroke-width="2"/><path d="M475 333 L485 341 L481 353 L469 353 L465 341 Z" fill="' + INK + '"/></g>',
+        'World Cup bracket with Spain advancing, title odds bars and a bouncing football');
     }
   };
   function art(key) { return (ART[key] || ART.fraud)(); }
@@ -588,6 +631,7 @@
       [['$', 'python train.py --model xgboost --smote'], ['ok', '✓ AUC-PR 0.9752 · recall 87.5% · FP 0.152%'], ['$', 'docker build -t fraud-api . && deploy'], ['ok', '✓ live on Render → /predict 200 OK']],
       [['$', 'python finetune.py mistral-7b --lora --4bit'], ['dim', '  ablation: LoRA rank 4 · 8 · 16 · 32 · 64'], ['ok', '✓ best rank 16 · training memory −75%']],
       [['$', 'psql -f cohort_retention.sql'], ['dim', '  540K+ transactions · CTEs · window functions'], ['ok', '✓ critical churn window → Month 3']],
+      [['$', 'node simulate.js --bracket wc2026 --runs 20000'], ['dim', '  Elo ratings → win probability → Monte Carlo'], ['ok', '✓ 4 of 5 knockout calls correct · Spain 64%']],
       [['$', 'streamlit run screening_app.py'], ['dim', '  OCR → MRZ check → ELA → face match → score'], ['ok', '✓ verdict: FLAG (tampered region found)']]
     ];
     const line = (l) => l[0] === '$' ? '<span class="c">$</span> ' + esc(l[1]) : '<span class="' + l[0] + '">' + esc(l[1]) + '</span>';

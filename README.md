@@ -21,6 +21,7 @@ It is a fast, dependency-free static site (plain HTML, CSS and JavaScript — no
 | **ShipTrack** | Role-based MERN logistics tracker with JWT auth, a 9-endpoint REST API and a live shipment timeline. | React, Node.js, Express, MongoDB, Vercel, Render | [Live app](https://ship-tracker-eight.vercel.app/) · [Code](https://github.com/arnav-singh-20/ShipTracker) |
 | **Customer Churn & Cohort Retention** | SQL cohort analysis of 540K+ transactions identifying Month 3 as the critical churn window, validated with chi-square and t-tests. | SQL, Python, statsmodels, Power BI | [Code](https://github.com/arnav-singh-20/ecommerce-churn-cohort-analysis) |
 | **Power BI Sales Dashboard** | Multi-page dashboard across 4 regions and 3 categories that surfaced 8–12% margin erosion from discounting. | Power BI, DAX | [Code](https://github.com/arnav-singh-20/powerbi-sales-dashboard) |
+| **FIFA World Cup 2026 Prediction Model** | Transparent Elo ratings + Monte Carlo bracket simulation (20,000+ live runs); called 4 of 5 knockout matches before kick-off and 2 of 2 awards, with every call locked in and scored honestly. | Python, JavaScript, Elo, Monte Carlo, Render | [Live app](https://fifa2026-prediction-model.onrender.com/) · [Code](https://github.com/arnav-singh-20/FIFA-2026-Prediction-Model) |
 
 ## What's on the site
 

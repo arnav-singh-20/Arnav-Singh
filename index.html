@@ -51,7 +51,7 @@
       /* every project page is /work/<slug> → token '#p-<slug>'. The old
          template case-study paths redirect to the matching project. */
       var SLUGS = ['fraud-detection','fake-id-screening','legalsimplify','churn-cohort',
-                   'legal-query-classifier','shiptrack','powerbi-sales'];
+                   'legal-query-classifier','shiptrack','powerbi-sales','fifa-2026'];
       var LEGACY = { hatcha: 'legalsimplify', fireflut: 'fake-id-screening',
                      existence: 'churn-cohort', jumpable: 'fraud-detection' };
       var P2H = { '/about': '#about', '/playground': '#playground' };
@@ -3262,20 +3262,20 @@
       </div>
     </div>
 
-    <p class="ax-more-link reveal"><a class="ax-link" href="#projects">Explore all 7 projects &darr;</a></p>
+    <p class="ax-more-link reveal"><a class="ax-link" href="#projects">Explore all 8 projects &darr;</a></p>
 
     <!-- ════ ARNAV · IMPACT IN NUMBERS ════ -->
     <section class="ax-sec" id="impact" aria-labelledby="impact-h">
       <p class="ax-eyebrow ax-in">Impact in numbers</p>
       <h2 class="ax-h2 ax-in" id="impact-h">Results you can <i>measure</i></h2>
-      <p class="ax-sub ax-in">Every project ends with a number that matters to someone &mdash; money saved, memory freed, or a decision made. Here are a few.</p>
+      <p class="ax-sub ax-in">Every project ends with a number that matters to someone &mdash; money saved, memory freed, a match called or a decision made. Here are a few.</p>
       <div class="ax-impact-grid">
         <div class="ax-stat ax-in" style="--i:0"><span class="ax-count" data-v="0.9752" data-d="4">0.9752</span><span class="ax-stat-k">AUC-PR on fraud detection</span><span class="ax-stat-d">How well the model finds rare fraud (1.0 is perfect) in 284K transactions where fraud is under 1%.</span></div>
         <div class="ax-stat ax-in" style="--i:1;--c:#f6c740"><span class="ax-count" data-v="5338" data-d="0" data-pre="&pound;">&pound;5,338</span><span class="ax-stat-k">Fraud losses prevented</span><span class="ax-stat-d">Estimated saving vs. having no detector, using a cost-based decision threshold.</span></div>
         <div class="ax-stat ax-in" style="--i:2;--c:#71b7f4"><span class="ax-count" data-v="540" data-d="0" data-suf="K+">540K+</span><span class="ax-stat-k">Transactions analysed</span><span class="ax-stat-d">SQL cohort analysis that found Month 3 as the moment customers leave.</span></div>
         <div class="ax-stat ax-in" style="--i:0;--c:#9fb37a"><span class="ax-count" data-v="75" data-d="0" data-pre="~" data-suf="%">~75%</span><span class="ax-stat-k">Less GPU memory</span><span class="ax-stat-d">Fine-tuning the 7-billion-parameter Mistral-7B with LoRA and 4-bit quantisation.</span></div>
         <div class="ax-stat ax-in" style="--i:1"><span class="ax-count" data-v="300" data-d="0" data-suf="+">300+</span><span class="ax-stat-k">DSA problems solved</span><span class="ax-stat-d">On LeetCode and CodeChef &mdash; CodeChef rating <b data-cc="codechef.rating">1663</b> (<span data-cc="codechef.stars">3</span>&#9733;), DSA rating <b data-cc="dsa.rating">2035</b>.</span></div>
-        <div class="ax-stat ax-in" style="--i:2;--c:#f6c740"><span class="ax-count" data-v="8.45" data-d="2">8.45</span><span class="ax-stat-k">CGPA &middot; B.Tech CE</span><span class="ax-stat-d">ABES Engineering College (AKTU), class of 2027.</span></div>
+        <div class="ax-stat ax-in" style="--i:2;--c:#9fb37a"><span class="ax-count" data-v="80" data-d="0" data-suf="%">80%</span><span class="ax-stat-k">World Cup calls correct</span><span class="ax-stat-d">4 of 5 knockout matches predicted before kick-off by my Elo + Monte Carlo model &mdash; misses published too.</span></div>
       </div>
     </section>
 
@@ -3679,7 +3679,7 @@
         <!-- blog / technical focus (node 342:5315) -->
         <div class="ff-card b1 pos-cb ff-blog">
           <div class="ff-blog-img"><img loading="lazy" decoding="async" src="assets/arnav/pipeline.svg" alt="Data, model, evaluate, explain, ship — the end-to-end ML pipeline"></div>
-          <p class="ff-blog-title">How I build ML systems, from notebook to production</p>
+          <p class="ff-blog-title">How I build ML systems, end to end</p>
           <div class="ff-blog-foot">
             <span class="rl">See the process</span>
             <span class="rl-icon" aria-hidden="true"></span>
@@ -3689,19 +3689,19 @@
 
         <!-- deployed ml model (node 342:5417) -->
         <div class="ff-card pos-rb ff-starry">
-          <div class="ff-media"><div class="ax-tile-art" data-ax-tile="fraud" role="img" aria-label="Fraud detection model illustration"></div></div>
+          <div class="ff-media"><div class="ax-tile-art" data-ax-tile="fifa" role="img" aria-label="World Cup prediction model illustration"></div></div>
           <div class="ff-starry-panel">
             <span class="k">Live ML Deployment</span>
-            <span class="t">Credit Card Fraud Detection API</span>
+            <span class="t">FIFA 2026 Prediction Model</span>
             <div class="ff-starry-row">
-              <div class="ff-avatars"><span class="plus">FastAPI &middot; Docker &middot; Render</span></div>
+              <div class="ff-avatars"><span class="plus">4/5 calls &middot; Elo &middot; Monte Carlo</span></div>
               <button class="ff-play-btn" type="button">
                 <span>LIVE</span>
                 <img loading="lazy" decoding="async" class="pl-icon" src="assets/about-starry-extlink.svg" width="20" height="20" alt="" aria-hidden="true">
               </button>
             </div>
           </div>
-          <a class="ff-starry-link" href="https://fraud-detection-model-wvtj.onrender.com/docs" target="_blank" rel="noopener noreferrer" aria-label="Open the live Credit Card Fraud Detection API"></a>
+          <a class="ff-starry-link" href="https://fifa2026-prediction-model.onrender.com/" target="_blank" rel="noopener noreferrer" aria-label="Open the live FIFA 2026 Prediction Model"></a>
         </div>
 
       </div>
