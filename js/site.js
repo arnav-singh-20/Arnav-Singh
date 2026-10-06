@@ -111,7 +111,7 @@ const FOOTER_HTML = `
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
           <span class="ft-copy-label">Copy email</span>
         </button>
-        <a class="ft-cta" href="/assets/resume/Arnav-Singh-AIML-Resume.pdf" target="_blank" rel="noopener">
+        <a class="ft-cta" href="/assets/resume/Arnav-Singh-ML-Engineer-Resume.pdf" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Resume
         </a>
@@ -128,7 +128,7 @@ const FOOTER_HTML = `
       <a href="https://github.com/arnav-singh-20" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.kaggle.com/singharnav18" target="_blank" rel="noopener">Kaggle</a>
       <a href="https://leetcode.com/u/arnavsingh18/" target="_blank" rel="noopener">LeetCode</a>
-      <a href="/assets/resume/Arnav-Singh-AIML-Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      <a href="/assets/resume/Arnav-Singh-ML-Engineer-Resume.pdf" target="_blank" rel="noopener">Resume</a>
     </nav>
   </footer>
 `;
@@ -208,7 +208,7 @@ const CONTACT_HTML = `
         <a href="https://www.linkedin.com/in/-singharnav/" target="_blank" rel="noopener">LinkedIn&nbsp;↗</a>
         <a href="https://github.com/arnav-singh-20" target="_blank" rel="noopener">GitHub&nbsp;↗</a>
         <a href="https://www.kaggle.com/singharnav18" target="_blank" rel="noopener">Kaggle&nbsp;↗</a>
-        <a href="/assets/resume/Arnav-Singh-AIML-Resume.pdf" target="_blank" rel="noopener">Resume&nbsp;↗</a>
+        <a href="/assets/resume/Arnav-Singh-ML-Engineer-Resume.pdf" target="_blank" rel="noopener">Resume&nbsp;↗</a>
       </nav>
     </div>
   </aside>

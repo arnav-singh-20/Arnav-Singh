@@ -22,7 +22,7 @@
     kaggle:   'https://www.kaggle.com/singharnav18',
     leetcode: 'https://leetcode.com/u/arnavsingh18/',
     codechef: 'https://www.codechef.com/users/arnavsingh18',
-    resume:   '/assets/resume/Arnav-Singh-AIML-Resume.pdf',
+    resume:   '/assets/resume/Arnav-Singh-ML-Engineer-Resume.pdf',
     gsc:      'https://developers.google.com/profile/badges/community/solution-challenge/2025/participant',
     agents:   'https://developers.google.com/profile/badges/events/cloud/five-day-ai-agents?u=102108331226690283295',
     gdgoc:    'https://developers.google.com/profile/badges/community/gdg/GDGoC/member',
